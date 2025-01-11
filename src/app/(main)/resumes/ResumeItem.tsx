@@ -29,6 +29,8 @@ import { deleteResume } from "./actions";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
+  contentRef: React.RefObject<HTMLDivElement>;
+  className?: string;
 }
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
