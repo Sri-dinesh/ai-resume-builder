@@ -9,7 +9,7 @@ import { Badge } from "./ui/badge";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
-  contentRef?: React.Ref<HTMLDivElement>;
+  contentRef?: React.RefObject<HTMLDivElement>;
   className?: string;
 }
 
