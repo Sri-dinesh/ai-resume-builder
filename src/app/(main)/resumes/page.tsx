@@ -6,6 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import CreateResumeButton from "./CreateResumeButton";
 import ResumeItem from "./ResumeItem";
+import { useRef } from "react";
 
 export const metadata: Metadata = {
   title: "Your resumes",
@@ -13,6 +14,8 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const { userId } = await auth();
+
+  const contentRef = useRef<HTMLDivElement>(null);
 
   if (!userId) {
     return null;
@@ -47,7 +50,7 @@ export default async function Page() {
       </div>
       <div className="flex w-full grid-cols-2 flex-col gap-3 sm:grid md:grid-cols-3 lg:grid-cols-4">
         {resumes.map((resume) => (
-          <ResumeItem key={resume.id} resume={resume} />
+          <ResumeItem key={resume.id} resume={resume} contentRef={contentRef} />
         ))}
       </div>
     </main>
