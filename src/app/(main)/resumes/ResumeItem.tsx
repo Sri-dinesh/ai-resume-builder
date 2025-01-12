@@ -29,7 +29,7 @@ import { deleteResume } from "./actions";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
-  contentRef: React.RefObject<HTMLDivElement>;
+  contentRef: React.Ref<HTMLDivElement>;
   className?: string;
 }
 
