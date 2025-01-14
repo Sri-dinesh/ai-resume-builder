@@ -42,6 +42,7 @@ export default function ResumePreview({
         <PersonalInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
         <WorkExperienceSection resumeData={resumeData} />
+        <ProjectSection resumeData={resumeData} />
         <EducationSection resumeData={resumeData} />
         <SkillsSection resumeData={resumeData} />
       </div>
@@ -198,6 +199,61 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
             </div>
             <p className="text-xs font-semibold">{exp.company}</p>
             <div className="whitespace-pre-line text-xs">{exp.description}</div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function ProjectSection({ resumeData }: ResumeSectionProps) {
+  const { projects, colorHex } = resumeData;
+
+  const projectsNotEmpty = projects?.filter(
+    (proj) => Object.values(proj).filter(Boolean).length > 0,
+  );
+
+  if (!projectsNotEmpty?.length) return null;
+
+  return (
+    <>
+      <hr
+        className="border-2"
+        style={{
+          borderColor: colorHex,
+        }}
+      />
+      <div className="space-y-3">
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Projects
+        </p>
+        {projectsNotEmpty.map((proj, index) => (
+          <div key={index} className="break-inside-avoid space-y-1">
+            <div
+              className="flex items-center justify-between text-sm font-semibold"
+              style={{
+                color: colorHex,
+              }}
+            >
+              <span>{proj.ProjectName}</span>
+              {proj.startDate && (
+                <span>
+                  {formatDate(proj.startDate, "MM/yyyy")} -{" "}
+                  {proj.endDate
+                    ? formatDate(proj.endDate, "MM/yyyy")
+                    : "Present"}
+                </span>
+              )}
+            </div>
+            <p className="text-xs font-semibold">{proj.toolsUsed}</p>
+            <div className="whitespace-pre-line text-xs">
+              {proj.description}
+            </div>
           </div>
         ))}
       </div>

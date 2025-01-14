@@ -8,6 +8,7 @@ export interface EditorFormProps {
 
 export const resumeDataInclude = {
   workExperiences: true,
+  projects: true,
   educations: true,
 } satisfies Prisma.ResumeInclude;
 

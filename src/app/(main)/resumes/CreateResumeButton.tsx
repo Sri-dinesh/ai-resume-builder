@@ -6,7 +6,7 @@ import { PlusSquare } from "lucide-react";
 import Link from "next/link";
 
 interface CreateResumeButtonProps {
-  canCreate: boolean | number | "";
+  canCreate: boolean;
 }
 
 export default function CreateResumeButton({
@@ -14,9 +14,7 @@ export default function CreateResumeButton({
 }: CreateResumeButtonProps) {
   const premiumModal = usePremiumModal();
 
-  const isCreatable = Boolean(canCreate); // Convert to boolean here
-
-  if (isCreatable) {
+  if (canCreate) {
     return (
       <Button asChild className="mx-auto flex w-fit gap-2">
         <Link href="/editor">
@@ -26,17 +24,6 @@ export default function CreateResumeButton({
       </Button>
     );
   }
-
-  // if (canCreate) {
-  //   return (
-  //     <Button asChild className="mx-auto flex w-fit gap-2">
-  //       <Link href="/editor">
-  //         <PlusSquare className="size-5" />
-  //         New resume
-  //       </Link>
-  //     </Button>
-  //   );
-  // }
 
   return (
     <Button
