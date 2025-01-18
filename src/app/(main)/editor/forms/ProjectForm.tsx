@@ -35,6 +35,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { GripHorizontal } from "lucide-react";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
+import GenerateProjectButton from "./GenerateProjectButton";
 
 export default function ProjectForm({
   resumeData,
@@ -170,6 +171,13 @@ function ProjectItem({ id, form, index, remove }: ProjectItemProps) {
           className="size-5 cursor-grab text-muted-foreground focus:outline-none"
           {...attributes}
           {...listeners}
+        />
+      </div>
+      <div className="flex justify-center">
+        <GenerateProjectButton
+          onProjectGenerated={(proj) =>
+            form.setValue(`projects.${index}`, proj)
+          }
         />
       </div>
       <FormField

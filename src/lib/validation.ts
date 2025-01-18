@@ -128,9 +128,22 @@ export type GenerateWorkExperienceInput = z.infer<
   typeof generateWorkExperienceSchema
 >;
 
+export const generateProjectExperienceSchema = z.object({
+  description: z
+    .string()
+    .trim()
+    .min(1, "Required")
+    .min(20, "Must be at least 20 characters"),
+});
+
+export type GenerateProjectExperienceInput = z.infer<
+  typeof generateProjectExperienceSchema
+>;
+
 export const generateSummarySchema = z.object({
   jobTitle: optionalString,
   ...workExperienceSchema.shape,
+  ...projectSchema.shape,
   ...educationSchema.shape,
   ...skillsSchema.shape,
 });
