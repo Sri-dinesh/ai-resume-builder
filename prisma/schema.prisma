@@ -53,6 +53,8 @@ model WorkExperience {
   endDate     DateTime?
   description String?
 
+  locationType String?
+
   resumeId String
   resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
@@ -110,4 +112,8 @@ model UserSubscription {
   updatedAt DateTime @updatedAt
 
   @@map("user_subscriptions")
+}
+
+model certifications {
+  id String @id @default(cuid())
 }

@@ -41,11 +41,11 @@ export const workExperienceSchema = z.object({
         startDate: optionalString,
         endDate: optionalString,
         description: optionalString,
+        locationType: optionalString,
       }),
     )
     .optional(),
 });
-
 export type WorkExperienceValues = z.infer<typeof workExperienceSchema>;
 
 export type WorkExperience = NonNullable<

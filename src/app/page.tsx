@@ -1,5 +1,5 @@
-import logo from "@/assets/logo.png";
-import resumePreview from "@/assets/resume-preview.jpg";
+import logo from "@/images/logo.png";
+import resumePreview from "@/images/resume-preview.jpg";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";

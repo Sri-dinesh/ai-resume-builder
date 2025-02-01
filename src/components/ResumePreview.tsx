@@ -120,7 +120,18 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           {city && country ? ", " : ""}
           {country}
           {(city || country) && (phone || email) ? " • " : ""}
-          {[phone, email].filter(Boolean).join(" • ")}
+          {/* {[phone, email].filter(Boolean).join(" • ")} */}
+          {phone && (
+            <a href={`tel:${phone}`} className="text-blue-500">
+              {phone}
+            </a>
+          )}
+          {phone && email ? " • " : ""}
+          {email && (
+            <a href={`mailto:${email}`} className="text-blue-500">
+              {email}
+            </a>
+          )}
         </p>
       </div>
     </div>
@@ -167,7 +178,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
   return (
     <>
       <hr
-        className="border-2"
+        className="border-1.5"
         style={{
           borderColor: colorHex,
         }}
@@ -196,6 +207,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
                   {exp.endDate ? formatDate(exp.endDate, "MM/yyyy") : "Present"}
                 </span>
               )}
+              <p className="text-xs font-light">{exp.locationType}</p>
             </div>
             <p className="text-xs font-semibold">{exp.company}</p>
             <div className="whitespace-pre-line text-xs">{exp.description}</div>
@@ -337,7 +349,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
           {skills.map((skill, index) => (
             <Badge
               key={index}
-              className="rounded-md bg-black text-white hover:bg-black"
+              className="rounded-sm bg-black text-white hover:bg-black"
               style={{
                 backgroundColor: colorHex,
                 borderRadius:

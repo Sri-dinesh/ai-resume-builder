@@ -212,6 +212,31 @@ function WorkExperienceItem({
           </FormItem>
         )}
       />
+      <FormField
+        control={form.control}
+        name={`workExperiences.${index}.locationType`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Location Type</FormLabel>
+            <FormControl>
+              <select
+                {...field}
+                className="flex h-9 w-full rounded-md border border-input px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+              >
+                <option value="" disabled>
+                  Select Location Type
+                </option>
+                <option value="Remote" defaultValue={"Remote"}>
+                  Remote
+                </option>
+                <option value="Onsite">Onsite</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <div className="grid grid-cols-2 gap-3">
         <FormField
           control={form.control}

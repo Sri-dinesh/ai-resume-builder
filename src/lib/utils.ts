@@ -37,6 +37,7 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
       startDate: exp.startDate?.toISOString().split("T")[0],
       endDate: exp.endDate?.toISOString().split("T")[0],
       description: exp.description || undefined,
+      locationType: exp.locationType || undefined,
     })),
     projects: data.projects.map((proj) => ({
       ProjectName: proj.ProjectName || undefined,
