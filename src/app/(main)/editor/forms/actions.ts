@@ -202,8 +202,11 @@ export async function generateSummary(input: GenerateSummaryInput) {
   const { jobTitle, workExperiences, projects, educations, skills } =
     generateSummarySchema.parse(input);
 
+  // Summary Prompt
   const prompt = `
     Please generate a professional resume summary from this data:
+
+    You are a professional resume writer and career strategist specializing in ${jobTitle}. Using the provided data, craft a concise and impactful professional resume summary tailored for the role of ${jobTitle}.. Ensure the summary highlights key achievements, transferable skills, technical expertise, and leadership qualities. Focus on incorporating relevant keywords from the job description to make it ATS-friendly. Use power verbs, quantify impact with measurable results (e.g., numbers, percentages, or metrics), and emphasize soft skills, certifications, and problem-solving abilities where applicable. Keep the tone modern, professional, and results-oriented.
 
     Job title: ${jobTitle || "N/A"}
 
@@ -218,7 +221,7 @@ export async function generateSummary(input: GenerateSummaryInput) {
         `,
       )
       .join("\n\n")}
-Projects:
+    Projects:
     ${projects
       ?.map(
         (proj) => `
@@ -229,7 +232,7 @@ Projects:
         `,
       )
       .join("\n\n")}
-      Education:
+    Education:
     ${educations
       ?.map(
         (edu) => `
@@ -238,10 +241,13 @@ Projects:
       )
       .join("\n\n")}
 
-      Skills:
-      ${skills}
+    Skills:
+    ${skills}
 
-    Only return the professional summary and do not include any other information in the response. Keep it concise and professional.
+    **Instructions:**
+    1. Only return the professional summary—do not include any other sections or raw data in the response.
+    2. Tailor the summary to align with the target role and industry, emphasizing adaptability, collaborative achievements, and strategic accomplishments.
+    3. Ensure the summary is visually appealing, concise (no more than 4 sentences), and optimized for both human readers and applicant tracking systems (ATS).
     `;
 
   try {
@@ -277,17 +283,40 @@ export async function generateWorkExperience(
 
   const { description } = generateWorkExperienceSchema.parse(input);
 
+  // const prompt = `
+  // Generate a single work experience entry based on this description: "${description}"
+
+  // Your response must follow this exact format, omitting fields if they can't be inferred from the data:
+
+  // Job title: <job title>
+  // Company: <company name>
+  // Start date: <YYYY-MM-DD format, only if provided>
+  // End date: <YYYY-MM-DD format, only if provided>
+  // Description: <optimized description in bullet format>
+  // `;
+  //  Work Experience Prompt
   const prompt = `
   Generate a single work experience entry based on this description: "${description}"
   
-  Your response must follow this exact format, omitting fields if they can't be inferred from the data:
+  Your response must follow this exact format, omitting fields if they can't be inferred from the data:Job title: <job title>
   
-  Job title: <job title>
   Company: <company name>
   Start date: <YYYY-MM-DD format, only if provided>
   End date: <YYYY-MM-DD format, only if provided>
-  Description: <optimized description in bullet format>
-  `;
+  Description:
+  - Accomplished X by implementing Y which led to Z.
+  - Accomplished X by implementing Y which led to Z.
+  - Accomplished X by implementing Y which led to Z.
+  - Accomplished X by implementing Y which led to Z.
+  
+  - Accomplished X by implementing Y which led to Z.Instructions:
+  
+  1. Extract or infer the job title, company name, start date, and end date (if available) from the provided description.
+  2. Rewrite the description into 5 concise bullet points using the "Accomplished X by implementing Y which led to Z" template.
+  3. Focus on quantifiable achievements, technical skills, leadership qualities, and measurable outcomes where possible.
+  4. If specific details like metrics, tools, or dates are not explicitly mentioned, make reasonable inferences based on common industry practices.
+  5. Ensure the tone is professional, action-oriented, and optimized for both human readers and applicant tracking systems (ATS).
+`;
 
   try {
     const result = await model.generateContent(prompt);
@@ -328,16 +357,51 @@ export async function generateProject(input: GenerateProjectExperienceInput) {
 
   const { description } = generateProjectExperienceSchema.parse(input);
 
+  // Project Prompt
   const prompt = `
   Generate a single project experience entry based on this description: "${description}"
-  
+
   Your response must follow this exact format, omitting fields if they can't be inferred from the data:
-  
+
   Project name: <project name>
   Role: <your role in the project>
   Duration: <duration in months or years, only if provided>
   Description: <optimized description in bullet format>
+  Instructions:
+    1. Extract or infer the project name, role, and duration (if available) from the provided description.
+    2. Write the description into 4-5 concise bullet points using the "Accomplished X by implementing Y which led to Z" template and also each line should be only of than 1 line.
+    3. Focus on quantifiable achievements, technical skills, and measurable outcomes where possible.
+    4. If specific details like metrics or tools are not explicitly mentioned, make reasonable inferences based on common industry practices.
+    5. Ensure the tone is professional, action-oriented, and optimized for both human readers and applicant tracking systems (ATS).
   `;
+  {
+    /*
+    const prompt = `
+    Generate a single project experience entry based on this description: "${description}"
+
+    Your response must follow this exact format, omitting fields if they can't be inferred from the data:
+
+    Project name: <project name>
+    Role: <your role in the project>
+    Duration: <duration in months or years, only if provided>
+    Description:
+    Description:
+  - Accomplished X by implementing Y which led to Z.
+  - Accomplished X by implementing Y which led to Z.
+  - Accomplished X by implementing Y which led to Z.
+  - Accomplished X by implementing Y which led to Z.
+  - Accomplished X by implementing Y which led to Z.
+    <optimized description in  rounded bullet format>
+
+    Instructions:
+      1. Extract or infer the project name, role, and duration (if available) from the provided description.
+      2. Rewrite the description into 5-6 concise bullet points using the "Accomplished X by implementing Y which led to Z" template.
+      3. Focus on quantifiable achievements, technical skills, and measurable outcomes where possible.
+      4. If specific details like metrics or tools are not explicitly mentioned, make reasonable inferences based on common industry practices.
+      5. Ensure the tone is professional, action-oriented, and optimized for both human readers and applicant tracking systems (ATS).
+    `; 
+*/
+  }
 
   try {
     const result = await model.generateContent(prompt);

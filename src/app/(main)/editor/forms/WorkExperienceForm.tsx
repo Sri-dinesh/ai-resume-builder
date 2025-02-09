@@ -226,9 +226,7 @@ function WorkExperienceItem({
                 <option value="" disabled>
                   Select Location Type
                 </option>
-                <option value="Remote" defaultValue={"Remote"}>
-                  Remote
-                </option>
+                <option value="Remote">Remote</option>
                 <option value="Onsite">Onsite</option>
                 <option value="Hybrid">Hybrid</option>
               </select>
