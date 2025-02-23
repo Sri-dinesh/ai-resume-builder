@@ -36,6 +36,7 @@ import { GripHorizontal } from "lucide-react";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 import GenerateProjectButton from "./GenerateProjectButton";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function ProjectForm({
   resumeData,
@@ -253,7 +254,12 @@ function ProjectItem({ id, form, index, remove }: ProjectItemProps) {
           <FormItem>
             <FormLabel>Description</FormLabel>
             <FormControl>
-              <Textarea {...field} />
+              {/* <Textarea {...field} /> */}
+              <RichTextEditor
+                value={field.value || ""}
+                onChange={field.onChange}
+                placeholder="Describe your role, responsibilities, and achievements..."
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

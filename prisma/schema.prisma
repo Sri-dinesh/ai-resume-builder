@@ -38,8 +38,9 @@ model Resume {
   educations      Education[]
   skills          String[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  Certification Certification[]
 
   @@map("resumes")
 }
@@ -114,6 +115,16 @@ model UserSubscription {
   @@map("user_subscriptions")
 }
 
-model certifications {
-  id String @id @default(cuid())
+model Certification {
+  id           String    @id @default(cuid())
+  name         String?
+  institution  String?
+  dateAchieved DateTime?
+  resumeId     String?
+  resume       Resume?   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("certifications")
 }

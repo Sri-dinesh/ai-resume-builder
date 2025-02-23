@@ -210,7 +210,7 @@ export default function SummaryForm({
               {expandedIndex === index && (
                 <button
                   onClick={() => handleSuggestionClick(suggestion)}
-                  className="absolute bottom-2 right-2 rounded-md bg-primary px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-primary/90"
+                  className="absolute bottom-2 right-2 rounded-md bg-primary px-3 py-1 text-xs font-medium text-black transition-colors hover:bg-primary/90"
                 >
                   Use This
                 </button>

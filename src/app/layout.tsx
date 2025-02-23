@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import "./globals.css";
+// import MouseMoveEffect from "@/components/mouse-move-effect";
+
+import ConditionalMouseMoveEffect from "../components/ConditionalMouseMoveEffect";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +37,8 @@ export default function RootLayout({
             {children}
             <Toaster />
           </ThemeProvider>
+          {/* <MouseMoveEffect /> */}
+          <ConditionalMouseMoveEffect />
         </body>
       </html>
     </ClerkProvider>

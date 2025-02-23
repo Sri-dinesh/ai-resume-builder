@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
         hostname: "fjx9bnquc2tue55g.public.blob.vercel-storage.com",
       },
     ],
+    domains: ["img.freepik.com"],
   },
 };
 
